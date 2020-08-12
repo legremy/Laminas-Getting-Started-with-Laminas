@@ -2,13 +2,25 @@
 
 namespace Album\Controller;
 
-use Laminas\Mvc\Controller\AbstractActionController;
+use Album\Model\AlbumTable;
 use Laminas\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 class AlbumController extends AbstractActionController
 {
+
+    private $table;
+
+    public function __construct(AlbumTable $table)
+    {
+        $this->table = $table;
+    }
+
     public function indexAction()
     {
+        return [
+            'albums' => $this->table->fetchAll(),
+        ];
     }
 
     public function addAction()
